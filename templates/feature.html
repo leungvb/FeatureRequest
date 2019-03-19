@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "navbar.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+<section class="hero is-primary is-bold" xmlns="http://www.w3.org/1999/html">
+    <div class="hero-body" style="min-height: 1000px;">
+        <div class="container col-lg-6">
+            <h2 class="text-center">Feature Request Application</h2>
+            <div class="row align-items-center justify-content-md-center">
+                <div class="card col-lg-6">
+
+                    <form action="" method="post">
+                        {{ form.csrf_token }}
+                         {{ wtf.form_field(form.title) }}
+                         {{ wtf.form_field(form.description) }}
+                         {{ wtf.form_field(form.client) }}
+                        {{ wtf.form_field(form.date) }}
+                        {{ wtf.form_field(form.area) }}
+
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+</section>
+
+
+<script src="../static/js/scripts.js"></script>
+{% endblock %}
