@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, session
+from flask import Flask, redirect, url_for, render_template, request, session, flash
 from flask_bootstrap import Bootstrap
 from scripts import forms
 from flask_sqlalchemy import SQLAlchemy
@@ -47,7 +47,8 @@ def feature():
         feature=Feature()
         
         save_changes(feature, form)
-        return redirect('/')
+        flash('Feature Successfully Added!')
+        return redirect('/')        # change this to url_for
     return render_template('feature.html', form=form)
 
 # ========= MAIN ======= #
