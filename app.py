@@ -18,6 +18,9 @@ class Feature(db.Model):
     title = db.Column(db.String(75))
     description =db.Column(db.String(75))
 
+    def __repr__(self):
+        return self.title
+
 db.drop_all()
 db.create_all()  
 
@@ -33,8 +36,11 @@ def save_changes(feature, form):
 @app.route('/', methods=['GET'])
 def home():
     users=['User 1','User 2','User 3']
+    all_features = Feature.query.all()
+    print(all_features)
+    print(type(all_features))
 
-    return render_template('home.html', users=users)
+    return render_template('home.html', users=users, features=all_features)
 
 # -------  Create Feature route ---- #
 
