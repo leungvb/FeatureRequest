@@ -5,23 +5,37 @@
     <h1 class="text-center">Tasks To Be Done</h1>
     <div class="hero-body" style="min-height: 500px;">
 
-        <div class="container col-md-6">
+        <table id="features" class="table table-sm order-column display hover cell-border compact">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Task Priority</th>
+                    <th scope="col">Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
             {% for feature in features %}
-            <div class="container col-md-6">
-                <div class="row">
-                    <div class="col">
-                        <div class="card text-white bg-secondary" style="width: 18rem;">
-                          <div class="card-body bg-dark">
-                            <h5 class="card-title text-white">{{ feature }}</h5>
-                            <p class="card-text">{{ feature.description }}</p>
-                            <a href="#" class="btn btn-success">Delete</a>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </br>
+                <tr>
+                  <th scope="row">{{ feature.id }}</th>
+                  <td>{{ feature.title }}</td>
+                  <td>{{ feature.description }}</td>
+                    <td>{{ feature.client }}</td>
+                    <td>{{ feature.priority }}
+                        {% if feature.priority > 8 %}
+                            <span class="badge badge-danger">Urgent!</span>
+                        {% elif feature.priority > 5 and feature.priority < 9 %}
+                            <span class="badge badge-warning">Dont forget!</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ feature.date }}</td>
+                </tr>
             {% endfor %}
+            </tbody>
+        </table>
+
         </div>
     </div>
 
@@ -30,5 +44,4 @@
 </section>
 
 
-<script src="../static/js/scripts.js"></script>
 {% endblock %}
