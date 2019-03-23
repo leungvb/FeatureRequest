@@ -17,9 +17,10 @@
                     <h4>Description:</h4>
                     </br>
                   <p>{{ feature.description }}</p>
+                    <p>{{ feature.area}}</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
               </div>
 
@@ -31,32 +32,35 @@
     <h1 class="text-center">Tasks To Be Done</h1>
     <div class="hero-body" style="min-height: 500px;">
 
-        <table id="features" class="table table-sm order-column display hover cell-border compact responsive">
+        <table id="features" class="table table-sm order-column display hover cell-border compact responsive" style="width:70%">
             <thead>
                 <tr>
-                  <th scope="col">#</th>
+
                   <th scope="col">Title</th>
                   <th scope="col">Description</th>
                     <th scope="col">Client</th>
                     <th scope="col">Task Priority</th>
                     <th scope="col">Due Date</th>
+                    <th scope="col">Product Area(s)</th>
                 </tr>
             </thead>
             <tbody>
             {% for feature in features %}
                 <tr>
-                  <th scope="row">{{ feature.id }}</th>
-                  <td>{{ feature.title }}</td>
+                  <th>{{ feature.title }}</th>
                   <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myOutput{{ feature.id }}" >Description</button></td>
                   <td>{{ feature.client }}</td>
                   <td>{{ feature.priority }}
-                    {% if feature.priority > 8 %}
+                    {% if feature.priority > 7 %}
                         <span class="badge badge-danger">Urgent!</span>
-                    {% elif feature.priority > 5 and feature.priority < 9 %}
-                        <span class="badge badge-warning">Dont forget!</span>
+                    {% elif feature.priority > 5 and feature.priority < 8 %}
+                        <span class="badge badge-warning">Important!</span>
+                    {% elif feature.priority < 5 %}
+                        <span class="badge badge-success">Save For Later!</span>
                     {% endif %}
                   </td>
                   <td>{{ feature.date }}</td>
+                  <td>{{ feature.area}}</td>
                 </tr>
             {% endfor %}
 

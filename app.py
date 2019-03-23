@@ -20,11 +20,12 @@ class Feature(db.Model):
     client = db.Column(db.String(10))
     priority = db.Column(db.Integer)
     date = db.Column(db.DATE)
+    area = db.Column(db.String(80))
 
     def __repr__(self):
         return self.title
 
-
+db.drop_all()
 db.create_all()  
 
 # saves form data to database
@@ -34,6 +35,9 @@ def save_changes(feature, form):
     feature.client = form.client.data
     feature.priority = int(form.priority.data)
     feature.date = form.date.data
+    feature.area = ', '.join(form.area.data)
+    print(feature.area)
+    print(type(feature.area))
 
     db.session.add(feature)
     db.session.commit()
