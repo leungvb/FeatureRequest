@@ -2,16 +2,15 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 from flask_bootstrap import Bootstrap
 from scripts import forms
 from flask_sqlalchemy import SQLAlchemy
+from config import DevelopmentConfig, ProductionConfig
 import os
 
 app = Flask(__name__)
 Bootstrap(app)
-BASE_DIR = os.path.dirname(os.path.realpath(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+ os.path.join(BASE_DIR, 'feature.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'thisisasecret'
+app.config.from_object(ProductionConfig) # change to either ProductionConfig or DevelopmentConfig
 db= SQLAlchemy(app)
-
+db.drop_all()
+db.create_all()
 
 class Feature(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -25,8 +24,6 @@ class Feature(db.Model):
     def __repr__(self):
         return self.title
 
-db.drop_all()
-db.create_all()  
 
 # saves form data to database
 def save_changes(feature, form):
