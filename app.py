@@ -73,4 +73,4 @@ def pagenotfound500(e):
 
 # ========= MAIN ======= #
 if __name__ == "__main__":
-    app.run(use_reloader=True)
+    app.run(host='0.0.0.0', port=8000, use_reloader=True)
