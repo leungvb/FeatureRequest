@@ -4,11 +4,13 @@ services:
   nginx:
     image: nginx:latest
     container_name: ng02
+    links:
+      - web
     ports:
       - "80:8000"
     volumes:
       - .:/code
-      - ./config/nginx:/etc/nginx/conf.d
+      - ./conf/nginx:/etc/nginx/conf.d
     depends_on:
       - web
 
