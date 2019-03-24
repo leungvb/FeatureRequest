@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block body %}
 {% include "navbar.html" %}
 
+{% block body %}
+<!-- Modal -->
 {% for feature in features %}
-         <!-- Modal -->
-<div class="modal fade" id="myOutput{{ feature.id }}" role="dialog" xmlns="http://www.w3.org/1999/html">
-            <div class="modal-dialog modal-lg">
 
+<div class="modal fade" id="myOutput{{ feature.id }}" role="dialog">
+    <div class="modal-dialog modal-lg">
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
@@ -23,27 +23,25 @@
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
               </div>
-
             </div>
-          </div>
+</div>
 {% endfor %}
 
 <section class="hero is-primary is-bold">
     <h1 class="text-center">Tasks To Be Done</h1>
     <div class="hero-body" style="min-height: 500px;">
-
         <table id="features" class="table table-sm order-column display hover cell-border compact responsive" style="width:70%">
             <thead>
                 <tr>
-
-                  <th scope="col">Title</th>
-                  <th scope="col">Description</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Client</th>
                     <th scope="col">Task Priority</th>
                     <th scope="col">Due Date</th>
                     <th scope="col">Product Area(s)</th>
                 </tr>
             </thead>
+            <!--Iterate over each row-->
             <tbody>
             {% for feature in features %}
                 <tr>
@@ -55,25 +53,16 @@
                         <span class="badge badge-danger">Urgent!</span>
                     {% elif feature.priority > 5 and feature.priority < 8 %}
                         <span class="badge badge-warning">Important!</span>
-                    {% elif feature.priority < 5 %}
+                    {% elif feature.priority < 6 %}
                         <span class="badge badge-success">Save For Later!</span>
                     {% endif %}
                   </td>
                   <td>{{ feature.date }}</td>
-                  <td>{{ feature.area}}</td>
+                  <td>{{ feature.area }}</td>
                 </tr>
             {% endfor %}
-
             </tbody>
         </table>
-
-
-        </div>
     </div>
-
-{% endblock %}
-{% block scripts %}
 </section>
-
-
 {% endblock %}

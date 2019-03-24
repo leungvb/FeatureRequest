@@ -3,14 +3,13 @@
 {% include "navbar.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-<section class="hero is-primary is-bold" xmlns="http://www.w3.org/1999/html">
+<section class="hero is-primary is-bold">
     <div class="hero-body" style="min-height: 1000px;">
         <div class="container col-lg-6">
             <h2 class="text-center">Feature Request Application</h2>
             <div class="row align-items-center justify-content-md-center">
                 <div class="card col-lg-6">
-                    <form action="" method="post">
-
+                    <form method="post">
                         {{ form.csrf_token }}
                         {{ wtf.form_field(form.title) }}
                         {{ wtf.form_field(form.description) }}

@@ -54,12 +54,10 @@ def home():
 def feature():
     form = forms.RequestForm(request.form)
     if request.method == 'POST' and form.validate():
-        print('that was a post request')
-        print(form.title.data)
         feature = Feature()
         save_changes(feature, form)
         flash('Feature Successfully Added!')
-        return redirect('/')        # change this to url_for
+        return redirect('/')
     return render_template('feature.html', form=form)
 
 
