@@ -7,15 +7,14 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/code
-      - ./conf/nginx:/etc/nginx/conf.d
+      - ./conf/nginx/:/etc/nginx/conf.d
     depends_on:
       - web
     network_mode: "host"
 
   web:
     network_mode: "host"
-    image: realmonchi/iwsfeatureapp:v3
+    image: realmonchi/iwsfeatureapp:v7
     ports:
       - "8000:8000"
     environment:
