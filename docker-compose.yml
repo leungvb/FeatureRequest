@@ -4,8 +4,6 @@ services:
   nginx:
     image: nginx:latest
     container_name: ng02
-    links:
-      - web
     ports:
       - "80:80"
     volumes:
@@ -13,10 +11,12 @@ services:
       - ./conf/nginx:/etc/nginx/conf.d
     depends_on:
       - web
+    network_mode: "host"
 
   web:
+    network_mode: "host"
     image: realmonchi/iwsfeatureapp:v3
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
     environment:
       - SECRET_KEY = 'changemeinprod'
