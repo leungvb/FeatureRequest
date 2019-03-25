@@ -7,7 +7,7 @@ services:
     links:
       - web
     ports:
-      - "80:8000"
+      - "80:80"
     volumes:
       - .:/code
       - ./conf/nginx:/etc/nginx/conf.d
@@ -15,8 +15,8 @@ services:
       - web
 
   web:
-    image: realmonchi/iwsfeatureapp:v2
+    image: realmonchi/iwsfeatureapp:v3
     expose:
       - "8000"
     environment:
-      - SECRET_KEY = 'changemeinprod"
+      - SECRET_KEY = 'changemeinprod'
