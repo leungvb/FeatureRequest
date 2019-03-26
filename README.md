@@ -1,5 +1,7 @@
 # Feature Request Application
 
+![Sample App Image](./static/images/homepage.jpg)
+
 > A web application that allows IWS employees to add a client's 'feature requests' to an existing piece of software.
 
  IWS employees are able to prioritize 'feature requests' that clients would like to have added to a piece of existing software.
