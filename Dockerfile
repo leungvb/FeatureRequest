@@ -9,8 +9,6 @@ COPY . /code
 
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-RUN . venv/bin/activate
+EXPOSE 8000
 
-EXPOSE 80
-
-CMD ["gunicorn", "--bind", "0.0.0.0:80", "wsgi:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi:app"]
