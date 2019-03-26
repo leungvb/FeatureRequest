@@ -3,7 +3,7 @@ version: '3.5'
 services:
   nginx:
     image: nginx:latest
-    container_name: ng02
+    container_name: ng03
     links:
       - web
     ports:
@@ -11,6 +11,7 @@ services:
     volumes:
       - .:/code
       - ./conf/nginx:/etc/nginx/conf.d
+      - ./static:/static
     depends_on:
       - web
 
