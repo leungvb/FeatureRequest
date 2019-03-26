@@ -5,7 +5,7 @@ services:
     image: nginx:latest
     container_name: ng02
     ports:
-      - "80:80"
+      - "80:8000"
     volumes:
       - ./conf/nginx/:/etc/nginx/conf.d
     depends_on:
@@ -14,7 +14,7 @@ services:
 
   web:
     network_mode: "host"
-    image: realmonchi/iwsfeatureapp:v7
+    image: realmonchi/iwsfeatureapp:v9
     ports:
       - "8000:8000"
     environment:
