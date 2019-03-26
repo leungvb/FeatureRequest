@@ -19,4 +19,4 @@ services:
     expose:
       - "8000"
     environment:
-      - SECRET_KEY = 'changemeinprod'
+      - SECRET_KEY= 'changemeinprod'
