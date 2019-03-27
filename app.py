@@ -29,6 +29,7 @@ class Feature(db.Model):
         return self.title
 
 
+
 # saves form data to database
 def save_changes(feature, form):
     feature.title = form.title.data

@@ -3,19 +3,22 @@ version: '3.5'
 services:
   nginx:
     image: nginx:latest
-    container_name: ng02
+    container_name: ng05
     ports:
       - "80:80"
     volumes:
       - ./conf/nginx/:/etc/nginx/conf.d
+      - ./static:/static
     depends_on:
       - web
-    network_mode: "host"
+
 
   web:
-    network_mode: "host"
-    image: realmonchi/iwsfeatureapp:v9
+
+    image: realmonchi/iwsfeatureapp:v20
     ports:
       - "8000:8000"
+    expose:
+      - "8000"
     environment:
       - SECRET_KEY = 'changemeinprod'
