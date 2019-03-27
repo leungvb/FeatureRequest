@@ -15,10 +15,8 @@ services:
 
   web:
 
-    image: realmonchi/iwsfeatureapp:v20
+    image: realmonchi/iwsfeatureapp:v21
     ports:
       - "8000:8000"
-    expose:
-      - "8000"
     environment:
       - SECRET_KEY = 'changemeinprod'
