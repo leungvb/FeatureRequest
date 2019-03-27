@@ -7,7 +7,7 @@ prodDB = 'feature.db'
 
 class Config:
     DEBUG = False
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'itsasecretkey'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
