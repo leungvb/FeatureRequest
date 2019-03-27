@@ -21,11 +21,11 @@
 - [Features](#features)
 - [Running Tests](#tests)
 - [Tools Used](#tools)
-- [Deployment Notes](#deployment)
+- [Deployment Method](#deployment)
 - [Known Issues/To Do](#issues)
 
 
-## View working demo:
+## Demo:
 
 > http://167.99.181.38
 
@@ -100,6 +100,14 @@ This application was made with Flask, WTForms, Flask-SQLAlchemy, and SQLite. The
 Docker-compose was used for the deployment of this application, which runs the web application & gunicorn in one container and nginx in the other container. The Docker-compose file downloads
 an image from the remote Dockerhub, which was built with the local Dockerfile.
 
+## Deployment
+
+An image was created from the Dockerfile and then pushed up to a public repository on the Dockerhub. Although this may be more resource intensive, updates to the production server
+are done easily as the docker-compose file only has to download the newly tagged image. Nginx serves up the static files, and nginx configurations are volume mounted into the nginx container and allow communication to the
+web container which hosts the flask application. Since the application was deployed to an IP address instead of an actual domain, a wildcard (_) was used in the nginx.conf files.
+The only main difference between the production and development configurations are that the environment variables for the SECRET_KEY (which is needed to enable CSRF protection) are hard-coded
+in development, and in production are hard-coded in the docker-compose.yml.
+
 ## Tests
 
 To run the test suite:
@@ -124,7 +132,6 @@ python -m unittest
 
 ## Issues
 For simplicity, the dockerfile used contains the SQLite database. In reality a better option would have been to have used a Postgres database in its own separate container.
-The docker containers all run in root, however a user should have been created for security purposes. Environment variables are hard coded in the docker-compose.yml.
-Since the application was deployed to an IP address instead of an actual domain, a wildcard (_) was used in the nginx.conf files. A service should be used in the event the containers crash
+The docker containers all run in root, however a user should have been created for security purposes. Environment variables are hard coded in the docker-compose.yml. A service should be used in the event the containers crash
 or fail. Logging should also be added to the docker containers.
 

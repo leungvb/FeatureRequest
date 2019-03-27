@@ -13,10 +13,12 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'itsasecret'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///'\
                               + os.path.join(basedir, devDB)
 
 
 class ProductionConfig(Config):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'itsasecret'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///'\
                               + os.path.join(basedir, prodDB)
