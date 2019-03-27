@@ -1,4 +1,6 @@
 # Feature Request Application
+[![Python](https://img.shields.io/badge/python-3.7-blue.svg?style=flat-square)](https://www.python.org/downloads/release/python-373/)
+
 
 ![Sample App Image](./static/images/homepage.jpg)
 
@@ -12,14 +14,21 @@
  Feature Requests with higher priority have an urgent badge while tasks with lower priority have a 'save for later' badge.
 
  ## Table of Contents
-
+- [Demo](#demo)
 - [Pre-Requisites](#prerequisites)
-- [Install](#install)
-- [Usage](#usage)
+- [Install/Run Locally](#install)
+- [Install/Run with docker-compose](#Docker)
+- [Features](#features)
 - [Running Tests](#tests)
 - [Deployment Notes](#deployment)
 - [Known Issues/To Do](#issues)
-- [Content](#content)
+
+
+## View working demo:
+```sh
+http://167.99.181.38
+```
+
 
 ## Prerequisites
 
@@ -57,3 +66,54 @@ python app.py
 ```
 View the application at:
 http://0.0.0.0:8000
+
+## Docker
+
+
+In order to run this repository with Docker/Docker-compose on Linux, remove older versions of docker-compose and reinstall newest version:
+```sh
+sudo rm /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+Apply executable permissions to the binary:
+```sh
+sudo chmod +x /usr/local/bin/docker-compose
+```
+Clone the repository:
+```sh
+https://github.com/leungvb/FeatureRequest.git
+```
+Change Directory into FeatureRequest:
+```sh
+cd FeatureRequest
+```
+Start Service In The Background:
+```sh
+docker-compose up -d
+```
+View the application at:
+http://0.0.0.0 or http://localhost:8000
+
+## Features
+
+This application was made with Flask, WTForms, Flask-SQLAlchemy, and SQLite. The front end consists of Jinja2 templates, Bootstrap, JQuery and the DataTables plugin.
+Docker-compose was used for the deployment of this application, which runs the web application & gunicorn in one container and nginx in the other container. The Docker-compose file downloads
+an image from the remote Dockerhub, which was built with the local Dockerfile.
+
+## Tests
+
+To run the test suite:
+Create the virtual environment, install all requirements, and run the tests
+```sh
+virtualenv venv --python=python3.7
+. venv/bin/activate
+pip install -r requirements.txt
+python -m unittest
+```
+
+## Issues
+For simplicity, the dockerfile used contains the SQLite database. In reality a better option would have been to have used a Postgres database in its own separate container.
+The docker containers all run in root, however a user should have been created for security purposes. Environment variables are hard coded in the docker-compose.yml.
+Since the application was deployed to an IP address instead of an actual domain, a wildcard (_) was used in the nginx.conf files. A service should be used in the event the containers crash
+or fail. Logging should also be added to the docker containers.
+
