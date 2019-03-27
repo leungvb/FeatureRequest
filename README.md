@@ -20,14 +20,14 @@
 - [Install/Run with docker-compose](#Docker)
 - [Features](#features)
 - [Running Tests](#tests)
+- [Tools Used](#tools)
 - [Deployment Notes](#deployment)
 - [Known Issues/To Do](#issues)
 
 
 ## View working demo:
-```sh
-http://167.99.181.38
-```
+
+> http://167.99.181.38
 
 
 ## Prerequisites
@@ -110,6 +110,17 @@ virtualenv venv --python=python3.7
 pip install -r requirements.txt
 python -m unittest
 ```
+## Tools
+- Python
+- Flask
+- SQLAlchemy
+- SQLite
+- Javascript/JQuery
+- Jinja2
+- Bootstrap
+- DataTables Plugin
+- Nginx
+- Docker/Docker-Compose
 
 ## Issues
 For simplicity, the dockerfile used contains the SQLite database. In reality a better option would have been to have used a Postgres database in its own separate container.
