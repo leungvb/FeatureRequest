@@ -20,5 +20,4 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'itsasecret'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///'\
-                              + os.path.join(basedir, prodDB)
+    SQLALCHEMY_DATABASE_URI = 'postgres://victor:test123@localhost:5432/features'

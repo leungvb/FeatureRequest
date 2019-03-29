@@ -11,11 +11,8 @@ services:
       - ./static:/static
     depends_on:
       - web
-
-
   web:
-
-    image: realmonchi/iwsfeatureapp:v21
+    image: realmonchi/iwsfeatureapp:v22
     ports:
       - "8000:8000"
     environment:
