@@ -11,9 +11,11 @@ services:
       - ./static:/static
     depends_on:
       - web
+    network_mode: "host"
   web:
-    image: realmonchi/iwsfeatureapp:v22
+    image: realmonchi/iwsfeatureapp:v24
     ports:
       - "8000:8000"
     environment:
       - SECRET_KEY= 'changemeinprod'
+    network_mode: "host"

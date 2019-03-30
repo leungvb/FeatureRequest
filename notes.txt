@@ -1,0 +1,10 @@
+For version 24 of the application, a separate postgres container was created.
+It was set up manually without any scripts, but we will have to automate that.
+we also had the migrations done and gunicorn was taken out in the dockerfile.
+maybe look into replacing it back in.
+
+to do:
+be able to have a volumes so data is persistent.
+make sure this is able to run on production server.
+have a script/entrypoint for the container
+
