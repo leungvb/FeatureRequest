@@ -9,6 +9,11 @@ COPY . /code
 
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-#CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi:app"]
+CMD ["sleep", "20"]
+CMD ["python", "manage.py", "db", "init"]
+CMD ["python", "manage.py", "db", "migrate"]
+CMD ["python", "manage.py", "db", "upgrade"]
 
-CMD ["python", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi:app"]
+
+#CMD ["python", "app.py"]

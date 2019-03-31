@@ -8,3 +8,14 @@ be able to have a volumes so data is persistent.
 make sure this is able to run on production server.
 have a script/entrypoint for the container
 
+
+problems:
+had to run the postgres container with initialization script first,
+then run a bunch of commands for the web container to migrate the database.
+also in v24 we are still using flask to serve the app so nginx is not being used.
+
+docker-compose run web python manage.py db init
+docker-compose run web python manage.py db migrate
+docker-compose run web python manage.py db upgrade
+
+those commands are needed in order to migrate the database
