@@ -26,7 +26,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     network_mode: "host"
   web:
-    image: realmonchi/iwsfeatureapp:v28
+    image: realmonchi/iwsfeatureapp:v29
     restart: on-failure
     ports:
       - "8000:8000"

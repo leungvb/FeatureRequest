@@ -19,3 +19,13 @@ docker-compose run web python manage.py db migrate
 docker-compose run web python manage.py db upgrade
 
 those commands are needed in order to migrate the database
+
+###
+version 30
+###
+
+Before running this, migrations must be run.
+Nginx/Postgres and web now run perfectly on local on 0.0.0.0:8000 in nginx.conf.
+
+Before web:8000 was not working i think. one issue is the lack of persistent volumes, when u docker-compose down and then up again,
+the application ceases to work.
