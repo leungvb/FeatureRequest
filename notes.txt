@@ -29,3 +29,10 @@ Nginx/Postgres and web now run perfectly on local on 0.0.0.0:8000 in nginx.conf.
 
 Before web:8000 was not working i think. one issue is the lack of persistent volumes, when u docker-compose down and then up again,
 the application ceases to work.
+
+
+
+### to do:
+change nginx.conf to use web:8000 instead of 0.0.0.0...
+add persistent volumes to database
+add the health check script, wait-for-postgres.sh

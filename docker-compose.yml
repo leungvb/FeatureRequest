@@ -26,7 +26,8 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     network_mode: "host"
   web:
-    image: realmonchi/iwsfeatureapp:v30
+    image: realmonchi/iwsfeatureapp:v40
+#    command: ['./wait-for-postgres.sh']
     restart: always
     ports:
       - "8000:8000"
