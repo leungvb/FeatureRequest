@@ -19,7 +19,7 @@ db.create_all()
 class Feature(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(75))
-    description = db.Column(db.String(75))
+    description = db.Column(db.String(500))
     client = db.Column(db.String(10))
     priority = db.Column(db.Integer)
     date = db.Column(db.DATE)
