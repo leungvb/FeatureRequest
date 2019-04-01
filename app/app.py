@@ -1,9 +1,9 @@
 from flask import Flask, redirect, render_template, request, flash, url_for
 from flask_bootstrap import Bootstrap
-from scripts import forms
 from flask_sqlalchemy import SQLAlchemy
-from config import DevelopmentConfig, ProductionConfig
 
+from scripts import forms
+from config import ProductionConfig
 
 # change to ProductionConfig or DevelopmentConfig
 ENVIRONMENT = ProductionConfig

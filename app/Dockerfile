@@ -9,7 +9,5 @@ COPY . /code
 
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-CMD ["./wait-for-postgres.sh"]
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi:app"]
 
 #CMD ["python", "app.py"]

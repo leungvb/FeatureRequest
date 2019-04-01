@@ -9,7 +9,8 @@ services:
       - "80:80"
     volumes:
       - ./conf/nginx/:/etc/nginx/conf.d
-      - ./static:/static
+      - ./app/static:/static
+      - ./logs/nginx:/var/log/nginx
     depends_on:
       - web
       - db
@@ -24,11 +25,14 @@ services:
       - POSTGRES_DB= 'features'
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./dbdata:/var/lib/postgresql/data
     network_mode: "host"
   web:
-    image: realmonchi/iwsfeatureapp:v41
-#    command: ['./wait-for-postgres.sh']
-    restart: on-failure
+    build: app
+    command: ['./wait-for-postgres.sh']
+    restart: always
+    volumes:
+      - ./logs/web:/var/log/gunicorn
     ports:
       - "8000:8000"
     environment:
