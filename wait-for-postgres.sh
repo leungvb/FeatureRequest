@@ -1,6 +1,15 @@
 #!/bin/sh
 # wait-for-postgres.sh
 
-echo "waiting to connect to database"
-sleep 10
-echo "postgres is ready... connecting..."
+set -e
+
+host="$1"
+cmd="$@"
+
+until psql postgres://victor:test123@localhost:5432/features -c '\q'; do
+  >&2 echo "Postgres is unavailable - sleeping"
+  sleep 1
+done
+
+>&2 echo "Postgres is up - executing command"
+exec $cmd
