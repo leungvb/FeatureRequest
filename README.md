@@ -98,7 +98,7 @@ for persistent data.
 
 To run the test suite, make sure the application is up and running:
 ```sh
-docker-compose exec -it <web_container_name> python -m unittest
+docker exec -it <web_container_name> python -m unittest
 ```
 
 
