@@ -1,8 +1,8 @@
 import os
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-devDB = 'feature.db'
-prodDB = 'feature.db'
+POSTGRES_USER = os.environ.get('POSTGRES_USER')
+POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
+POSTGRES_DB =  os.environ.get('POSTGRES_DB')
 
 
 class Config:
@@ -14,10 +14,9 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'itsasecret'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///'\
-                              + os.path.join(basedir, devDB)
+    SQLALCHEMY_DATABASE_URI = f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@localhost:5432/{POSTGRES_DB}"
 
 
 class ProductionConfig(Config):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'itsasecret'
-    SQLALCHEMY_DATABASE_URI = 'postgres://victor:test123@localhost:5432/features'
+    SQLALCHEMY_DATABASE_URI = f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@localhost:5432/{POSTGRES_DB}"

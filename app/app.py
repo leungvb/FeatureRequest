@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from scripts import forms
 from config import ProductionConfig, DevelopmentConfig
 
+
 # change to ProductionConfig or DevelopmentConfig
 ENVIRONMENT = ProductionConfig
 
