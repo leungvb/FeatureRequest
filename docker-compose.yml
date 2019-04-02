@@ -17,6 +17,7 @@ services:
     network_mode: "host"
   db:
     image: 'postgres:latest'
+    container_name: featurerequest_db_1
     env_file:
       - .env
     ports:
@@ -27,6 +28,7 @@ services:
     network_mode: "host"
   web:
     build: app
+    container_name: featurerequest_web_1
     env_file:
       - .env
     command: ['./wait-for-postgres.sh']

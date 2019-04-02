@@ -2,7 +2,7 @@
 [![Python](https://img.shields.io/badge/python-3.7-blue.svg?style=flat-square)](https://www.python.org/downloads/release/python-373/)
 
 
-![Sample App Image](./static/images/homepage.jpg)
+![Sample App Image](./app/static/images/homepage.jpg)
 
 > A web application that allows IWS employees to add a client's 'feature requests' to an existing piece of software.
 
@@ -10,7 +10,7 @@
  The IWS employee is able to add a description, due date, priority number (0 being least important to 9 being very urgent) as well as
  product area and which client requested the feature.
 
- Employees are able to view a table with all of the feature requests from all of the clients, and order them via any of the attributes (title & priority, client & priority, priority & title...etc.)
+ Employees are able to view a table with all of the feature requests from all of the clients, and order them via any of the attributes (title & priority, client & priority...etc.)
  Feature Requests with higher priority have an urgent badge while tasks with lower priority have a 'save for later' badge.
 
  ## Table of Contents
@@ -28,7 +28,7 @@
 
 ## Demo:
 
-> http://167.99.181.38
+> [Demo](http://167.99.181.38)
 
 
 ## Prerequisites
@@ -39,6 +39,7 @@
 - Flask
 - SQLAlchemy
 - PostgreSQL
+- Nginx
 
 ## Install
 
@@ -96,7 +97,11 @@ for persistent data.
 
 ## Tests
 
-To run the test suite:
+To run the test suite, make sure the application is up and running:
+```sh
+docker-compose exec -it <web_container_name> python -m unittest
+```
+
 
 ## Configuration
 
@@ -123,4 +128,5 @@ Although I haven't had any issues with running the application, potential issues
 The database initialization script (init.sql) is only run the first time, so it might take a bit longer to setup the database. This could cause potential connection issues for the web container
 listening on port 5432. However after the first time running this application (and all the migrations) the issues should subside.
 
-
+If you would like to make changes to the models of this application, it is suggested that the "newdbdata" directory be deleted and recreated/emptied, because the database initialization
+script is only ran if this postgresql data volume is empty.
