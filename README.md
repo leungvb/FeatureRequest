@@ -22,6 +22,7 @@
 - [Running Tests](#tests)
 - [Tools Used](#tools)
 - [Deployment Method](#deployment)
+- [Configuration](#configuration)
 - [Known Issues/To Do](#issues)
 
 
@@ -37,6 +38,7 @@
 - Python 3.7
 - Flask
 - SQLAlchemy
+- PostgreSQL
 
 ## Install
 
@@ -48,90 +50,77 @@ and then change directory:
 ```sh
 cd FeatureRequest
 ```
-Create a virtual environment with python 3.7:
+build the docker image locally:
 ```sh
-virtualenv venv --python=python3.7
+docker-compose build
 ```
-Activate the virtual environment:
-```sh
-. venv/bin/activate
-```
-Install all requirements from requirements.txt:
-```sh
-pip install -r requirements.txt
-```
-Run the application:
-```sh
-python app.py
-```
-View the application at:
-http://0.0.0.0:8000
-
-## Docker
-
-
-In order to run this repository with Docker/Docker-compose on Linux, remove older versions of docker-compose and reinstall newest version:
-```sh
-sudo rm /usr/local/bin/docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-```
-Apply executable permissions to the binary:
-```sh
-sudo chmod +x /usr/local/bin/docker-compose
-```
-Clone the repository:
-```sh
-https://github.com/leungvb/FeatureRequest.git
-```
-Change Directory into FeatureRequest:
-```sh
-cd FeatureRequest
-```
-Start Service In The Background:
+use docker-compose in detached mode to start nginx, postgres and the web containers:
 ```sh
 docker-compose up -d
 ```
+Apply database initialization and migrations:
+```sh
+docker exec -it featurerequest_web_1 python manage.py db init
+docker exec -it featurerequest_web_1 python manage.py db migrate
+docker exec -it featurerequest_web_1 python manage.py db upgrade
+```
 View the application at:
-http://0.0.0.0 or http://localhost:8000
+```sh
+http://0.0.0.0/
+```
+
+If database initialization or migrations did not work, try "docker ps" and check the name for the web container (default is featurerequest_web_1):
+```sh
+docker exec -it <web_container_name> python manage.py db init
+docker exec -it <web_container_name> python manage.py db migrate
+docker exec -it <web_container_name> python manage.py db upgrade
+```
 
 ## Features
 
-This application was made with Flask, WTForms, Flask-SQLAlchemy, and SQLite. The front end consists of Jinja2 templates, Bootstrap, JQuery and the DataTables plugin.
-Docker-compose was used for the deployment of this application, which runs the web application & gunicorn in one container and nginx in the other container. The Docker-compose file downloads
-an image from the remote Dockerhub, which was built with the local Dockerfile.
+This application was made with Flask, WTForms, Flask-SQLAlchemy, and PostgreSQL. The front end consists of Jinja2 templates, Bootstrap, JQuery and the DataTables plugin.
+It is a multi-container/microservices application that uses docker-compose to orchestrate communication between Nginx, PostgreSQL, and the Flask web application.
+It is complete with logging of the Nginx & Flask Web container, tests for the application, persistent database volumes, and configuration settings for production and development environments.
+
+Features submitted by the form can be ordered by multiple columns, that is, by "priority" first & "client" second, or by any other two categories (by pressing shift + column).
+By default the table is ordered by the "priority" column.
+
 
 ## Deployment
 
-An image was created from the Dockerfile and then pushed up to a public repository on the Dockerhub. Although this may be more resource intensive, updates to the production server
-are done easily as the docker-compose file only has to download the newly tagged image. Nginx serves up the static files, and nginx configurations are volume mounted into the nginx container and allow communication to the
-web container which hosts the flask application. Since the application was deployed to an IP address instead of an actual domain, a wildcard (_) was used in the nginx.conf files.
-The only main difference between the production and development configurations are that the environment variables for the SECRET_KEY (which is needed to enable CSRF protection) are hard-coded
-in development, and in production are hard-coded in the docker-compose.yml.
+Using the files from the repository, an image is built from the Dockerfile and then docker-compose.yml is used to initialize the Nginx, PostgreSQL and Flask Web containers.
+Although docker-compose is able to handle the initialization order of the containers, it doesn't necessarily wait for all containers to complete setup before the next container is started.
+The initialization order of these containers are important, as the web and nginx containers would depend on the PostgreSQL container to complete setup. Health checks to the PostgreSQL container
+were considered, but since the initialization script for the database is only ran once, it did not seem necessary to incorporate. An empty directory was volume mounted to the PostgreSQL container
+for persistent data.
 
 ## Tests
 
 To run the test suite:
-Create the virtual environment, install all requirements, and run the tests
-```sh
-virtualenv venv --python=python3.7
-. venv/bin/activate
-pip install -r requirements.txt
-python -m unittest
-```
+
+## Configuration
+
+Configuration settings are located in the '.env' file. The "env_file" directive in the docker-compose.yml file passes these environment variables to the web and db container.
+PostgreSQL user, password and database name are located in the 'init.sql' file and would need to be changed to the same values as those in the '.env' file.
+You can switch from Production to Development environments in app.py by setting 'ENVIRONMENT = ProductionConfig' or 'ENVIRONMENT = DevelopmentConfig'.
+
 ## Tools
-- Python
+- Python 3.7
 - Flask
+- Docker/Docker-Compose
+- PostgreSQL
 - SQLAlchemy
-- SQLite
 - Javascript/JQuery
 - Jinja2
 - Bootstrap
 - DataTables Plugin
 - Nginx
-- Docker/Docker-Compose
+
 
 ## Issues
-For simplicity, the dockerfile used contains the SQLite database. In reality a better option would have been to have used a Postgres database in its own separate container.
-The docker containers all run in root, however a user should have been created for security purposes. Environment variables are hard coded in the docker-compose.yml. A service should be used in the event the containers crash
-or fail. Logging should also be added to the docker containers.
+
+Although I haven't had any issues with running the application, potential issues could arise from the communication between the DB container (postgres) and the web container (flask application).
+The database initialization script (init.sql) is only run the first time, so it might take a bit longer to setup the database. This could cause potential connection issues for the web container
+listening on port 5432. However after the first time running this application (and all the migrations) the issues should subside.
+
 
