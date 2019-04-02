@@ -17,7 +17,6 @@
 - [Demo](#demo)
 - [Pre-Requisites](#prerequisites)
 - [Install/Run Locally](#install)
-- [Install/Run with docker-compose](#Docker)
 - [Features](#features)
 - [Running Tests](#tests)
 - [Tools Used](#tools)
@@ -28,7 +27,7 @@
 
 ## Demo:
 
-> [Demo](http://167.99.181.38)
+> [Demo](http://68.183.131.81)
 
 
 ## Prerequisites
@@ -59,7 +58,7 @@ use docker-compose in detached mode to start nginx, postgres and the web contain
 ```sh
 docker-compose up -d
 ```
-Apply database initialization and migrations:
+Apply database initialization and migrations: (featurerequest_web_1 is the name of the web app container)
 ```sh
 docker exec -it featurerequest_web_1 python manage.py db init
 docker exec -it featurerequest_web_1 python manage.py db migrate

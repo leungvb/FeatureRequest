@@ -37,8 +37,6 @@ services:
       - ./logs/web:/var/log/gunicorn
     ports:
       - "8000:8000"
-    environment:
-      - SECRET_KEY= 'changemeinprod'
     network_mode: "host"
     depends_on:
       - db
