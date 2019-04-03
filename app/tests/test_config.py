@@ -1,5 +1,4 @@
 import unittest
-import os
 from . import app
 
 # run with 'python -m unittest'
