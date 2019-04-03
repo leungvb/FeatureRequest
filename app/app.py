@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 
 from scripts import forms
-from config import ProductionConfig, DevelopmentConfig
+from config import ProductionConfig
 
 
 # change to ProductionConfig or DevelopmentConfig
@@ -72,6 +72,7 @@ def pagenotfound(e):
 def pagenotfound500(e):
     return render_template('pagenotfound.html'), 500
 
-# ========= MAIN ======= #
+
+# -------- MAIN --------- #
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000, use_reloader=True)
