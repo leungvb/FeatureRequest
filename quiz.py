@@ -9,16 +9,10 @@ message = b'gAAAAABco998-PwCqnqduE_pmLw5nxR5ePW7npi1_fdUbQB5nC2jXWn' \
           b'FwIxJ-t6hoj7l96samBd1hQTJ1ySpOH8K'
 
 
-def main()->bytes:
+def main() -> bytes:
     f = Fernet(key)
     print(f.decrypt(message))
 
 
 if __name__ == "__main__":
     main()
-
-'''
-solution URL:
-https://engineering-application.britecore.com/e/t2e119s3t/testImplementationEngineer
-formatted for PEP8
-'''
