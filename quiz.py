@@ -9,7 +9,7 @@ message = b'gAAAAABco998-PwCqnqduE_pmLw5nxR5ePW7npi1_fdUbQB5nC2jXWn' \
           b'FwIxJ-t6hoj7l96samBd1hQTJ1ySpOH8K'
 
 
-def main():
+def main()->bytes:
     f = Fernet(key)
     print(f.decrypt(message))
 
